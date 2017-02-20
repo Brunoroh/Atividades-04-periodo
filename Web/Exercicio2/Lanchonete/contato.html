@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Contato</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <div id="tudo">
+          <script src="script/header.js"></script>
+
+          <div id="formulario">
+              <form>
+                  <select  class="field">
+                      <option value="" selected="selected">Tipo de contato</option>
+                      <option value="">Dúvidas</option>
+                      <option value="">Sugestõe</option>
+                      <option value="">Reclamação</option>
+                      <option value="">Elogio</option>
+                  </select>
+                  <br>
+                  <br>
+                  <label for="receberEmail">Receber resposta no email?</label>
+                  <input type="checkbox" name="receberEmail"> sim
+                  <br>
+                  <br>
+                  Sexo
+                  <input type="radio" name="sexo" id="masc">Masculino
+                  <input type="radio" name="sexo" id="fem">Feminino
+
+                  <br>
+                  <br>
+                  <label for="nome" >Nome </label><br>
+                  <input type="text" name="nome" id="nome" class="field"><br> <br>
+                  <label for="email" >Email </label><br>
+                  <input type="email" name="email" id="email" class="field"><br> <br>
+                  <label >Mensagem </label> <br>
+                  <textarea rows="20" cols="50" class="field"></textarea><br>
+                  <br>
+                  <input type="submit" value="Enviar" class="field" style="width:60px !important;">
+              </form>
+          </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+document.write('<header>'
++'<img src="img/food-truck.png" alt="" width="200" height="100">'
++'<nav>'
+    +'<a href="index.html">Inicio</a>'
+    +'<a href="historia.html">Historia</a>'
+    +'<a href="galeria.html">Galeria</a>'
+    +'<a href="equipe.html">Equipe</a>'
+    +'<a href="contato.html">Contato</a>'
+    +'<a href="sobre.html">Sobre</a>'
++'</nav>'
++'</header>'); 

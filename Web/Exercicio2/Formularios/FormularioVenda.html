@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario Venda</title>
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/foundation.css">
+
+    <script src="js/vendor/foundation.js"></script>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/what-input.js"></script>
+</head>
+<body>
+    <div id="tudo" class="panel">
+            <h1 class="blink">Formulario de Vendas</h1>
+        <form>
+            <div id="dadosCliente" class="bloco">
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label for="cliente">Cliente</label>
+                        <input type="text" name="cliente" id="cliente" placeholder="Nome">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-8 small-8 columns">
+                        <input type="text" name="cpf" id="cpf" placeholder="CPF">
+                    </div>
+                    <div class="large-4 small-4 columns">
+                        <input type="text" name="dataNascimento" id="dataNascimento" placeholder="Data Nascimento">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label for="endereco">Endereço</label>
+                        <input type="text" name="endereco" id="endereco" placeholder="Endereço">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-8 small-8 columns">
+                        <input type="text" name="complemento" id="complemento" placeholder="Complemento">
+                    </div>
+                    <div class="large-4 small-4 columns">
+                        <input type="text" name="bairro" placeholder="Bairro">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-6 columns">
+                        <input type="text" name="cidade" placeholder="Cidade" />
+                    </div>
+                    <div class="large-3 columns">
+                        <input type="text" name="Estado" placeholder="Estado" />
+                    </div>
+                    <div class="large-3 columns">
+                        <input type="text" name="CEP" placeholder="CEP" />
+                    </div>
+                </div>
+                </div> <!-- end dados cliente-->
+                <br>
+                <div id="produtos" class="bloco">
+                <div class="row">
+                    <div class="large-12 columns">
+                    <label>Produtos
+                        <select>
+                            <option value="husker">Tenis</option>
+                            <option value="starbuck">Camisa</option>
+                            <option value="hotdog">Chuteira</option>
+                            <option value="apollo">Bola Profissional</option>
+                        </select>
+                    </label>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <label id="quantidade">Quantidade</label>
+                    <div class="large-4 small-4 columns">
+                        <input type="number">
+                    </div>
+                    <div class="large-5 small-5 columns">
+                        <input type="hidden">
+                    </div>
+                    <div class="large-3 small-3 columns">
+                        <input type="submit" id="adicionar" value="adicionar" class="button radius"/>
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Descrição</th>
+                                <th>Preço</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>556</td>
+                                <td>Tenis</td>
+                                <td>R$60</td>
+                            </tr>
+                            <tr>
+                                <td>597</td>
+                                <td>Chuteira</td>
+                                <td>R$90</td>
+                            </tr>
+                            <tr>
+                                <td>898</td>
+                                <td>Camisa Esportiva</td>
+                                <td>R$99</td>
+                            </tr>
+                            <tr>
+                                <td>545</td>
+                                <td>Bola Profissional</td>
+                                <td>R$160</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </form>
+   </div>
+</body>
+</html>
