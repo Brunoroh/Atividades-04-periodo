@@ -5,6 +5,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 public class App {
 
 	public App() {
+		
 		Soma soma = new Soma();
 		ConcurrentLinkedDeque<Double> fila = new ConcurrentLinkedDeque<Double>();
 		

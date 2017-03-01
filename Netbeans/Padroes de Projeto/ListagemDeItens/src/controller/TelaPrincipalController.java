@@ -29,7 +29,7 @@ public class TelaPrincipalController {
         
         AlunoDao dao = new AlunoDao();
         Iterator iterator = dao.lerArquivoArrayList(caminhoDoArquivo);
-        return ordenarSet(iterator);
+        return ordenarArvore(iterator);
     } 
     
     public Iterator ordenarArrayList(Iterator iterator){
