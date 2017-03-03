@@ -15,7 +15,6 @@ public class Somador extends Thread {
 	@Override
 	public void run() {
 		Double valor = (double)0;
-		
 		while(!soma.isFinishedRead() || (valor = fila.poll()) != null){
 			if(fila.isEmpty()){
 				continue;
