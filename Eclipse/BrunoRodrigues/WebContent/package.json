@@ -1,0 +1,14 @@
+{
+  "name": "exemplo_servlet",
+  "version": "1.0.0",
+  "description": "Projeto de exemplo, do uso de servlet da disciplina de Web 4º Periodo de ADS na Fatesg ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bruno Rodrigues",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

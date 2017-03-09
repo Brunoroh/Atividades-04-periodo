@@ -1,5 +1,3 @@
-
-
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Somador extends Thread {
@@ -10,7 +8,6 @@ public class Somador extends Thread {
 		this.fila = fila;
 		this.soma = soma;
 	}
-	
 	
 	@Override
 	public void run() {
@@ -23,7 +20,6 @@ public class Somador extends Thread {
 				this.soma.setValor(this.soma.getValor() + valor);
 			}
 		}
-		
 		System.out.println(this.getName()+" END");
 	}
 

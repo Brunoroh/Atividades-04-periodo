@@ -7,9 +7,9 @@ package view;
 
 import controller.TelaPrincipalController;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JFileChooser;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.Aluno;
 
@@ -27,7 +27,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public TelaPrincipal() {
         initComponents();
-        chooser = new JFileChooser();
+        chooser = new JFileChooser("/home/brunoroh/Documents/Workspace/Faculdade/Netbeans/Padroes de Projeto/ListagemDeItens/src/dados/");
         controller = new TelaPrincipalController();
         model = (DefaultTableModel) tbAlunos.getModel();  
     }
@@ -36,21 +36,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnListar = new javax.swing.JButton();
+        btnListarArrayList = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbAlunos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        ListarArvore = new javax.swing.JButton();
+        ListarPilha = new javax.swing.JButton();
+        ListarFila = new javax.swing.JButton();
+        ListarSet = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listagem de Itens");
 
-        btnListar.setText("Listar ArrayList");
-        btnListar.addActionListener(new java.awt.event.ActionListener() {
+        btnListarArrayList.setText("Listar ArrayList");
+        btnListarArrayList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarActionPerformed(evt);
+                btnListarArrayListActionPerformed(evt);
             }
         });
 
@@ -64,18 +65,40 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tbAlunos);
 
-        jButton1.setText("Listar Arvore");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ListarArvore.setText("Listar Arvore");
+        ListarArvore.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ListarArvoreActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Listar Pilha");
+        ListarPilha.setText("Listar Pilha");
+        ListarPilha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarPilhaActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Listar Fila");
+        ListarFila.setText("Listar Fila");
+        ListarFila.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarFilaActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Listar Set");
+        ListarSet.setText("Listar Set");
+        ListarSet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarSetActionPerformed(evt);
+            }
+        });
+
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,16 +109,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 811, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton4)
+                        .addComponent(btnLimpar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ListarSet)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
+                        .addComponent(ListarFila)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(ListarPilha)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(ListarArvore)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnListarArrayList, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -105,34 +129,66 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnListar)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnListarArrayList)
+                    .addComponent(ListarArvore)
+                    .addComponent(ListarPilha)
+                    .addComponent(ListarFila)
+                    .addComponent(ListarSet)
+                    .addComponent(btnLimpar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+    private void btnListarArrayListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarArrayListActionPerformed
         int retorno = chooser.showOpenDialog(null);
         if (retorno==JFileChooser.APPROVE_OPTION){
             caminhoDoArquivo = chooser.getSelectedFile().getAbsolutePath(); 
         }
-        Iterator alunos = controller.lerArquivo(caminhoDoArquivo);
+        Iterator alunos = controller.lerArquivoArrayList(caminhoDoArquivo);
         carregarTable(alunos);
-    }//GEN-LAST:event_btnListarActionPerformed
+    }//GEN-LAST:event_btnListarArrayListActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ListarArvoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarArvoreActionPerformed
         int retorno = chooser.showOpenDialog(null);
         if (retorno==JFileChooser.APPROVE_OPTION){
             caminhoDoArquivo = chooser.getSelectedFile().getAbsolutePath(); 
         }
-        Iterator alunos = controller.lerArquivo(caminhoDoArquivo);
+        Iterator alunos = controller.lerArquivoArvore(caminhoDoArquivo);
         carregarTable(alunos);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ListarArvoreActionPerformed
+
+    private void ListarPilhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarPilhaActionPerformed
+        int retorno = chooser.showOpenDialog(null);
+        if (retorno==JFileChooser.APPROVE_OPTION){
+            caminhoDoArquivo = chooser.getSelectedFile().getAbsolutePath(); 
+        }
+        Iterator alunos = controller.lerArquivoPilha(caminhoDoArquivo);
+        carregarTable(alunos);
+    }//GEN-LAST:event_ListarPilhaActionPerformed
+
+    private void ListarFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarFilaActionPerformed
+        int retorno = chooser.showOpenDialog(null);
+        if (retorno==JFileChooser.APPROVE_OPTION){
+            caminhoDoArquivo = chooser.getSelectedFile().getAbsolutePath(); 
+        }
+        Iterator alunos = controller.lerArquivoFila(caminhoDoArquivo);
+        carregarTable(alunos);
+    }//GEN-LAST:event_ListarFilaActionPerformed
+
+    private void ListarSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarSetActionPerformed
+        int retorno = chooser.showOpenDialog(null);
+        if (retorno==JFileChooser.APPROVE_OPTION){
+            caminhoDoArquivo = chooser.getSelectedFile().getAbsolutePath(); 
+        }
+        Iterator alunos = controller.lerArquivoSet(caminhoDoArquivo);
+        carregarTable(alunos);
+    }//GEN-LAST:event_ListarSetActionPerformed
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        limparTable();
+    }//GEN-LAST:event_btnLimparActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,7 +226,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     
     private void carregarTable(Iterator alunos){
-        
+        limparTable();
         while(alunos.hasNext()){
             Aluno aluno = (Aluno)alunos.next();
             model.addRow(new Object[]{aluno.getMatricula(),
@@ -179,13 +235,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 aluno.getDisciplinas()});
         }
     }
+    
+    private void limparTable(){
+        model.setNumRows(0);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnListar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton ListarArvore;
+    private javax.swing.JButton ListarFila;
+    private javax.swing.JButton ListarPilha;
+    private javax.swing.JButton ListarSet;
+    private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnListarArrayList;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tbAlunos;
     // End of variables declaration//GEN-END:variables

@@ -80,7 +80,7 @@ public class AlunoDao {
     }
     
     public Iterator lerArquivoSet(String caminhoDoArquivo){
-        Set<String> linhas = new LinkedHashSet<>();
+        TreeSet<String> linhas = new TreeSet<>();
         
         try {
             FileReader arquivo = new FileReader(caminhoDoArquivo);

@@ -25,12 +25,40 @@ public class TelaPrincipalController {
         alunoController = new AlunoController();
     }
     
-    public Iterator lerArquivo(String caminhoDoArquivo) {
+    public Iterator lerArquivoArrayList(String caminhoDoArquivo) {
         
         AlunoDao dao = new AlunoDao();
         Iterator iterator = dao.lerArquivoArrayList(caminhoDoArquivo);
-        return ordenarArvore(iterator);
+        return ordenarArrayList(iterator);
+    }
+    
+    public Iterator lerArquivoFila(String caminhoDoArquivo) {
+        
+        AlunoDao dao = new AlunoDao();
+        Iterator iterator = dao.lerArquivoFila(caminhoDoArquivo);
+        return ordenarFila(iterator);
     } 
+    
+    public Iterator lerArquivoPilha(String caminhoDoArquivo) {
+        
+        AlunoDao dao = new AlunoDao();
+        Iterator iterator = dao.lerArquivoPilha(caminhoDoArquivo);
+        return ordenarPilha(iterator);
+    } 
+    
+    public Iterator lerArquivoSet(String caminhoDoArquivo) {
+        
+        AlunoDao dao = new AlunoDao();
+        Iterator iterator = dao.lerArquivoSet(caminhoDoArquivo);
+        return ordenarSet(iterator);
+    } 
+    
+    public Iterator lerArquivoArvore(String caminhoDoArquivo) {
+        
+        AlunoDao dao = new AlunoDao();
+        Iterator iterator = dao.lerArquivoArvore(caminhoDoArquivo);
+        return ordenarArvore(iterator);
+    }
     
     public Iterator ordenarArrayList(Iterator iterator){
         ArrayList<Aluno> alunos = new ArrayList<>();
@@ -40,6 +68,8 @@ public class TelaPrincipalController {
         Collections.sort(alunos);
         return alunos.iterator();
     }
+    
+    
     
     public Iterator ordenarFila(Iterator iterator){
         LinkedList<Aluno> alunos = new LinkedList<>();
@@ -67,7 +97,7 @@ public class TelaPrincipalController {
         return alunos.iterator();
     }
     
-     public Iterator ordenarArvore(Iterator iterator){
+    public Iterator ordenarArvore(Iterator iterator){
         Set<Aluno> alunos = new TreeSet<>();
         while(iterator.hasNext()){
             alunos.add(alunoController.criarAluno((String)iterator.next())); 
