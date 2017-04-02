@@ -13,7 +13,7 @@ public class App {
 		Soma soma = new Soma();
 		Transporte transporte;
 		ConcurrentLinkedDeque<BigInteger> fila = new ConcurrentLinkedDeque<BigInteger>();
-		Conexao conexao = new Conexao("localhost",8080);
+		Conexao conexao = new Conexao("192.168.107.207",12345);
 		transporte = conexao.getTransporte();
 		System.out.println(transporte.getValorInicial()+" à "+transporte.getValorFinal());
 		Somador somador = new Somador(fila, soma);

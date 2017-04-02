@@ -1,15 +1,16 @@
 package contador;
 
-import java.math.BigInteger;
-
 public class Soma {
-	private BigInteger valor = BigInteger.valueOf(0);
+	private int valor;
 	private boolean finishedRead;
-	
-	public BigInteger getValor() {
+		
+	public Soma() {
+		valor = 0;
+	}
+	public int getValor() {
 		return valor;
 	}
-	public void setValor(BigInteger valor) {
+	public void setValor(int valor) {
 		this.valor = valor;
 	}
 	public boolean isFinishedRead() {

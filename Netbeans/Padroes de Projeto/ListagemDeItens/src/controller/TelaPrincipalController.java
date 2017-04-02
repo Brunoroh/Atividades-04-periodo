@@ -7,7 +7,9 @@ import model.Aluno;
 import dao.AlunoDao;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 import java.util.TreeSet;
 
 
@@ -72,16 +74,16 @@ public class TelaPrincipalController {
     
     
     public Iterator ordenarFila(Iterator iterator){
-        LinkedList<Aluno> alunos = new LinkedList<>();
+        Queue<Aluno> alunos = new LinkedList<Aluno>();
         while(iterator.hasNext()){
             alunos.add(alunoController.criarAluno((String)iterator.next())); 
         }
-        Collections.sort(alunos);
+        //Collections.sort(alunos);
         return alunos.iterator();
     }
     
     public Iterator ordenarPilha(Iterator iterator){
-        LinkedList<Aluno> alunos = new LinkedList<>();
+        Stack<Aluno> alunos = new Stack<Aluno>();
         while(iterator.hasNext()){
             alunos.add(alunoController.criarAluno((String)iterator.next())); 
         }

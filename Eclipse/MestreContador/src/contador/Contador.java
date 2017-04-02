@@ -7,6 +7,8 @@ import java.math.BigInteger;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import contador.SistemasDistribuidos.Transporte;
+
 public class Contador extends Thread {
 
 	ServerSocket serverSocket;
@@ -36,7 +38,7 @@ public class Contador extends Thread {
 				transporte = (Transporte)obj;
 			}
 			synchronized(soma){
-				soma.setValor(soma.getValor().add(transporte.getResultado()));
+				soma.setValor(soma.getValor()+transporte.getResutlado());
 			}
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
