@@ -28,8 +28,9 @@ public class BrunoRodriguesController extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String forward="";
+		String forward = "";
 		String action = req.getParameter("action");
+		
 		try {
 			if(action.equalsIgnoreCase("listar")){
 					forward = LISTAR;
