@@ -18,3 +18,9 @@ function carregarPedido(){
 function carregarPedidoItem(){
     document.getElementById("fraFormulario").src = "./PedidoItemBll?action=consultar";
 }
+
+function carregarRelatorio(){
+    document.getElementById("fraFormulario").src = "./PedidoItemBll?action=relatorio";
+}
+
+

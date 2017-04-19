@@ -31,6 +31,8 @@ public class ItemBll extends HttpServlet {
     public ItemBll() {
         super();
         dal = new ItemDal();
+        
+       
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

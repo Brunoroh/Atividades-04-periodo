@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
+import static org.assertj.core.api.Assertions.*;
 import br.com.bruno.dal.ClienteDAO;
 import br.com.bruno.model.Cliente;
 import junit.framework.TestCase;
@@ -28,7 +28,7 @@ public class ClienteBsTest extends TestCase {
 		bs = new ClienteBs(dao);
 		
 		cliente.setNome("Bruno Carlos Pinheiro Rodrigues");
-		cliente.setCpf("70016545678");
+		cliente.setCpf("700.198.111-14");
 		cliente.setDataNascimento(new Date());
 		cliente.setEmail("bruno@teste.com.br");
 		cliente.setEndereco("Rua 01");
@@ -37,7 +37,7 @@ public class ClienteBsTest extends TestCase {
 	}
 	
 	@Test
-	public void	testSalvar(){
+	public void	testSalvar() throws Exception{
 		Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
 		Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
 		
@@ -46,16 +46,17 @@ public class ClienteBsTest extends TestCase {
 	}
 	
 	@Test
-	public void	testSalvarComClienteNull(){
+	public void	testSalvarComClienteNull() throws Exception{
 		Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
 		Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
 		cliente = null;
+		
 		Cliente usuarioTestado = bs.salvar(null);
 		assertEquals(new Cliente(), usuarioTestado);	
 	}
 	
 	@Test
-	public void testAlterar(){
+	public void testAlterar() throws Exception{
 		cliente.setCodigo(1);
 		Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
 		Mockito.when(dao.alterar(Mockito.any())).thenReturn(true);
@@ -86,7 +87,7 @@ public class ClienteBsTest extends TestCase {
 	}
 	
 	@Test
-	public void	testSalvarComNomeNull(){
+	public void	testSalvarComNomeNull() throws Exception{
 		cliente.setNome(null);
 		Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
 		Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
@@ -97,16 +98,33 @@ public class ClienteBsTest extends TestCase {
 	
 	@Test
 	public void	testSalvarComCpfNull(){
-		cliente.setCpf(null);
-		Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
-		Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
-		
-		Cliente usuarioTestado = bs.salvar(cliente);
-		assertEquals(cliente, usuarioTestado);	
+			try{
+				cliente.setCpf(null);
+				Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
+				bs.salvar(cliente);
+				fail("Não disparou a exceção");
+			}catch(Exception e){
+				assertThat(e).hasMessage("O CPF está vazio");
+			}
+	}
+	
+	
+	@Test
+	public void	testSalvarComCpfInvalido() throws Exception{
+		try{
+			cliente.setCpf("700.198.111-5");
+			Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
+			Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
+			
+			Cliente usuarioTestado = bs.salvar(cliente);
+			fail("Não disparou a exceção");
+		}catch(Exception e){
+			assertThat(e).hasMessage("CPF é inválido");
+		}
 	}
 	
 	@Test
-	public void	testSalvarComDtNascimentoNull(){
+	public void	testSalvarComDtNascimentoNull() throws Exception{
 		cliente.setDataNascimento(null);
 		Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
 		Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
@@ -116,17 +134,21 @@ public class ClienteBsTest extends TestCase {
 	}
 	
 	@Test
-	public void	testSalvarComEmailNull(){
-		cliente.setEmail(null);
-		Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
-		Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
-		
-		Cliente usuarioTestado = bs.salvar(cliente);
-		assertEquals(cliente, usuarioTestado);	
+	public void	testSalvarComEmailNull() throws Exception{
+		try{
+			cliente.setEmail(null);
+			Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
+			Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
+			
+			Cliente usuarioTestado = bs.salvar(cliente);
+			fail("Não disparou a exceção");
+		}catch(Exception e){
+			assertThat(e).hasMessage("O email está vazio");
+		}
 	}
 	
 	@Test
-	public void	testSalvarComEnderecoNull(){
+	public void	testSalvarComEnderecoNull() throws Exception{
 		cliente.setEndereco(null);
 		Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
 		Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
@@ -136,7 +158,7 @@ public class ClienteBsTest extends TestCase {
 	}
 	
 	@Test
-	public void	testSalvarComRgNull(){
+	public void	testSalvarComRgNull() throws Exception{
 		cliente.setRg(null);
 		Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
 		Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
@@ -147,11 +169,15 @@ public class ClienteBsTest extends TestCase {
 	
 	@Test
 	public void	testSalvarComTelefoneNull(){
-		cliente.setTelefone(null);
-		Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
-		Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
-		
-		Cliente usuarioTestado = bs.salvar(cliente);
-		assertEquals(cliente, usuarioTestado);	
+		try{
+			cliente.setTelefone(null);
+			Mockito.when(dao.consultarPorCpf(cliente.getCpf())).thenReturn(cliente);
+			Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
+			
+			Cliente usuarioTestado = bs.salvar(cliente);
+			fail("Não disparou a exceção");
+		}catch(Exception e){
+			assertThat(e).hasMessage("O telefone está vazio");
+		}
 	}
 }

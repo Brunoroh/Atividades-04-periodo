@@ -9,25 +9,29 @@ import br.com.bruno.model.Proposta;
 public class PropostaBs {
 
 	PropostaDAO dao;
-
-	public PropostaBs(PropostaDAO dao) {
+	ImagemBs imgBs;
+	
+	
+	public PropostaBs(PropostaDAO dao, ImagemBs imgBs) {
 		this.dao = dao;
+		this.imgBs = imgBs;
 	}
 
 	public PropostaBs() {
 		dao = new PropostaDAO();
+		imgBs = new ImagemBs();
 	}
 
 	public Proposta salvar(Proposta proposta) {
-		ImagemBs imgBs = new ImagemBs();
-		Imagem imagem = imgBs.salvar(proposta.getImagem());
-		proposta.setImagem(imagem);
-		if(proposta.getCodigo() == 0){
-			dao.incluir(proposta);
-		}else{
-			dao.alterar(proposta);
+		if(proposta != null){
+			Imagem imagem = imgBs.salvar(proposta.getImagem());
+			proposta.setImagem(imagem);
+			if(proposta.getCodigo() == 0){
+				dao.incluir(proposta);
+			}else{
+				dao.alterar(proposta);
+			}
 		}
-		
 		return dao.consultarPorResponsavelEDescricao(proposta);
 	}
 

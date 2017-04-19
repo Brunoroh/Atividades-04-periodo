@@ -17,20 +17,22 @@ public class ClienteBs {
 		dao = new ClienteDAO();
 	}
 
-	public Cliente salvar(Cliente cliente) {
+	public Cliente salvar(Cliente cliente) throws Exception {
 		
-		if(cliente != null){
-			
-			if(cliente.getCodigo() == 0){
-				dao.incluir(cliente);
-			}else{
-				dao.alterar(cliente);
+			if(cliente != null){
+				if(validarCliente(cliente)){
+					if(cliente.getCodigo() == 0){
+						dao.incluir(cliente);
+					}else{
+						dao.alterar(cliente);
+					}
+					
+					return dao.consultarPorCpf(cliente.getCpf());
+				}
+				
 			}
 			
-			return dao.consultarPorCpf(cliente.getCpf());
-		}
-		
-		return new Cliente();
+			return new Cliente();
 	}
 
 	public Cliente consultar(int codigo) {
@@ -43,6 +45,43 @@ public class ClienteBs {
 	
 	public void remove(int codigo){
 		dao.remover(codigo);
+	}
+	
+	private boolean validarCliente(Cliente cliente) throws Exception{
+		
+		validarCpf(cliente.getCpf());
+		validarEmail(cliente.getEmail());
+		validarTelefone(cliente.getTelefone());
+		return true;
+		
+	}
+	
+	private boolean validarCpf(String cpf) throws Exception{
+		if("".equals(cpf) || cpf == null){
+			throw new Exception("O CPF está vazio");
+		}
+		
+		if(cpf.length() != 14){
+			throw new Exception("CPF é inválido");
+		}
+		return true;
+	}
+	
+	private boolean validarEmail(String email)throws Exception{
+		if("".equals(email) || email == null){
+			throw new Exception("O email está vazio");
+		}
+		
+		return true;
+	}
+	
+	
+	private boolean validarTelefone(String telefone) throws Exception{
+		if("".equals(telefone) || telefone == null){
+			throw new Exception("O telefone está vazio");
+		}
+		
+		return true;
 	}
 	
 	

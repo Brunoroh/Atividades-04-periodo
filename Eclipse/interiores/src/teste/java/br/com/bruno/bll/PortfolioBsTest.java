@@ -8,9 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-
+import static org.assertj.core.api.Assertions.*;
 import br.com.bruno.dal.PortfolioDAO;
-import br.com.bruno.model.Cliente;
 import br.com.bruno.model.Imagem;
 import br.com.bruno.model.Portfolio;
 import junit.framework.TestCase;
@@ -19,6 +18,8 @@ public class PortfolioBsTest extends TestCase {
 	
 	@Mock
 	PortfolioDAO dao;
+	@Mock
+	ImagemBs imgBs;
 	
 	PortfolioBs bs;
 	
@@ -27,7 +28,8 @@ public class PortfolioBsTest extends TestCase {
 	@Before
 	public void setUp(){
 		dao = Mockito.mock(PortfolioDAO.class);
-		bs = new PortfolioBs(dao);
+		imgBs = Mockito.mock(ImagemBs.class);
+		bs = new PortfolioBs(dao,imgBs);
 		portfolio = new Portfolio();
 		
 		portfolio.setCodigo(1);
@@ -39,7 +41,7 @@ public class PortfolioBsTest extends TestCase {
 	}
 	
 	@Test
-	public void	testSalvar(){
+	public void	testSalvar() throws Exception{
 		Mockito.when(dao.consultarPorResponsavel(portfolio)).thenReturn(portfolio);
 		Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
 		
@@ -48,7 +50,72 @@ public class PortfolioBsTest extends TestCase {
 	}
 	
 	@Test
-	public void testAlterar(){
+	public void	testSalvarPortfolioNull(){
+		try{
+			portfolio = null;
+			Mockito.when(dao.consultarPorResponsavel(portfolio)).thenReturn(portfolio);
+			Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
+			
+			Portfolio portfolioTestado = bs.salvar(portfolio);
+			fail("Não foi disparada a Exceção");
+		}catch(Exception e){
+			assertThat(e).hasMessage("Objeto portfolio esta null");
+		}
+	}
+	
+	@Test
+	public void	testSalvarComCategoriaNull(){
+		try{
+			portfolio.setCategoria(null);
+			Mockito.when(dao.consultarPorResponsavel(portfolio)).thenReturn(portfolio);
+			Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
+			
+			Portfolio portfolioTestado = bs.salvar(portfolio);
+			fail("Não foi disparada a Exceção");
+		}catch(Exception e){
+			assertThat(e).hasMessage("A categoria está vazia");
+		}
+	}
+	
+	@Test
+	public void	testSalvarImagemNull() throws Exception{
+			portfolio.setImagem(null);
+			Mockito.when(dao.consultarPorResponsavel(portfolio)).thenReturn(portfolio);
+			Mockito.when(imgBs.salvar(Mockito.any())).thenReturn(null);
+			Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
+			
+			Portfolio portfolioTestado = bs.salvar(portfolio);
+	}
+	
+	@Test
+	public void	testSalvarAmbienteNull() throws Exception{
+			portfolio.setAmbiente(null);
+			Mockito.when(dao.consultarPorResponsavel(portfolio)).thenReturn(portfolio);
+			Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
+			
+			Portfolio portfolioTestado = bs.salvar(portfolio);
+	}
+	
+	@Test
+	public void	testSalvarDataNull() throws Exception{
+			portfolio.setDataCadastro(null);
+			Mockito.when(dao.consultarPorResponsavel(portfolio)).thenReturn(portfolio);
+			Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
+			
+			Portfolio portfolioTestado = bs.salvar(portfolio);
+	}
+	
+	@Test
+	public void	testSalvarResponsavelNull() throws Exception{
+			portfolio.setResponsavel(null);
+			Mockito.when(dao.consultarPorResponsavel(portfolio)).thenReturn(portfolio);
+			Mockito.when(dao.incluir(Mockito.any())).thenReturn(true);
+			
+			Portfolio portfolioTestado = bs.salvar(portfolio);
+	}
+	
+	@Test
+	public void testAlterar() throws Exception{
 		portfolio.setCodigo(1);
 		Mockito.when(dao.consultarPorResponsavel(portfolio)).thenReturn(portfolio);
 		Mockito.when(dao.alterar(Mockito.any())).thenReturn(true);

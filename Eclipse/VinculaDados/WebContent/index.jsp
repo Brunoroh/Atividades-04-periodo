@@ -18,6 +18,7 @@
         <button onclick="return carregarItem();">Item</button>
         <button onclick="return carregarPedido();">Pedido</button>
         <button onclick="return carregarPedidoItem();">PedidoItem</button>
+        <button onclick="carregarRelatorio()">Relatorio Pedido Item</button>
         <br>
         <br>
         <iframe id="fraFormulario" width="1250" height="550"></iframe>

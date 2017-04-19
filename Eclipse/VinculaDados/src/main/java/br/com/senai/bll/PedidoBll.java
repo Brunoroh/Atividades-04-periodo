@@ -48,8 +48,6 @@ public class PedidoBll extends HttpServlet {
         if (action.equalsIgnoreCase("alterar")){
             int numero = Integer.parseInt(request.getParameter("numero"));
             Pedido pedido = dal.ConsultarPorCodigo(numero);
-           
-         
             request.setAttribute("pedido", pedido); 
         }
         

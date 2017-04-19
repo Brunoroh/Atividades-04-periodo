@@ -10,22 +10,30 @@ public class PortfolioBs {
 
 	PortfolioDAO dao;
 
-	public PortfolioBs(PortfolioDAO dao) {
+	ImagemBs imgBs = new ImagemBs();
+	
+	public PortfolioBs(PortfolioDAO dao,ImagemBs imgBs) {
 		this.dao = dao;
+		this.imgBs = imgBs;
 	}
 
 	public PortfolioBs() {
 		dao = new PortfolioDAO();
 	}
 
-	public Portfolio salvar(Portfolio portfolio) {
-		ImagemBs imgBs = new ImagemBs();
-		Imagem imagem = imgBs.salvar(portfolio.getImagem());
-		portfolio.setImagem(imagem);
-		if(portfolio.getCodigo() == 0){
-			dao.incluir(portfolio);
+	public Portfolio salvar(Portfolio portfolio) throws Exception {
+		if(portfolio != null){
+			if(validarPortfolio(portfolio)){
+				Imagem imagem = imgBs.salvar(portfolio.getImagem());
+				portfolio.setImagem(imagem);
+				if(portfolio.getCodigo() == 0){
+					dao.incluir(portfolio);
+				}else{
+					dao.alterar(portfolio);
+				}
+			}
 		}else{
-			dao.alterar(portfolio);
+			throw new Exception("Objeto portfolio esta null");
 		}
 		
 		return dao.consultarPorResponsavel(portfolio);
@@ -42,6 +50,22 @@ public class PortfolioBs {
 
 	public void remover(int codigo) {
 		dao.remover(codigo);
+	}
+	
+	private boolean validarPortfolio(Portfolio portfolio) throws Exception{
+		
+		validarCategoria(portfolio.getCategoria());
+		
+		return true;
+	}
+
+	private boolean validarCategoria(String categoria) throws Exception {
+
+		if("".equals(categoria) || categoria == null){
+			throw new Exception("A categoria está vazia");
+		}
+		
+		return true;
 	}
 	
 	

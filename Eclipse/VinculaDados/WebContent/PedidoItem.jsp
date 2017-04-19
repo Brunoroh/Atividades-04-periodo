@@ -14,7 +14,7 @@
         <title>Pedido com Item</title>      
     </head>
     <body>
-        <form method="POST" action='PedidoItemBll' name="frmDadosPI">
+        <form id="formulario" method="POST" action='PedidoItemBll' name="frmDadosPI">
             <table>
                 <tbody>
                     <tr>
@@ -86,6 +86,7 @@
                             <td><c:out value="${pi.quantidade}" /> </td>
                             <td><c:out value="${pi.valorunitario}" /></td>
                             <td><a href="PedidoItemBll?action=remover&codpedido=<c:out value="${pi.pedido.numero}"/>&coditem=<c:out value="${pi.item.codigo}"/>">Remover</a></td>
+                            <td><a href="PedidoItemBll?action=alterar&codpedido=<c:out value="${pi.pedido.numero}"/>&coditem=<c:out value="${pi.item.codigo}"/>">Alterar</a></td>
                         </tr>
                     </c:forEach>
                 </tbody>
