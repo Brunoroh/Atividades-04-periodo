@@ -29,15 +29,19 @@ public class PedidoDal {
 
 	public Pedido Inserir(Pedido pedido) {
 		try {
-			PreparedStatement preparedStatement = connection
-					.prepareStatement("insert into pedido(data, codcliente) values (?, ?) RETURNING numero ");
-			// Parameters start with 1
-			preparedStatement.setDate(1, new java.sql.Date(pedido.getData().getTime()));
-                        preparedStatement.setInt(2, pedido.getCliente().getCodigo());
-			ResultSet rs = preparedStatement.executeQuery();
-                        if(rs.next()) {
-                          return ConsultarPorCodigo(rs.getInt("numero"));
-                        }
+			if(pedido != null){
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("insert into pedido(data, codcliente) values (?, ?) RETURNING numero ");
+				// Parameters start with 1
+				preparedStatement.setDate(1, new java.sql.Date(pedido.getData().getTime()));
+	                        preparedStatement.setInt(2, pedido.getCliente().getCodigo());
+				ResultSet rs = preparedStatement.executeQuery();
+	                        if(rs.next()) {
+	                          return ConsultarPorCodigo(rs.getInt("numero"));
+	                        }
+			}else{
+				return null;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

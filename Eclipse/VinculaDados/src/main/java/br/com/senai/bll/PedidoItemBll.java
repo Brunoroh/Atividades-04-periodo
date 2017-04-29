@@ -70,6 +70,8 @@ public class PedidoItemBll extends HttpServlet {
         	
         	request.setAttribute("pis", pedidoItemDAO.ConsultarTodos());
         	pagina = RELATORIO;
+        }else{
+        	pagina = FORMULARIO;
         }
         if(!(numero == null || numero.isEmpty())){
             request.setAttribute("pis", pedidoItemDAO.ConsultarTodosPorPedido(Integer.parseInt(numero)));
@@ -91,17 +93,19 @@ public class PedidoItemBll extends HttpServlet {
             view.forward(request, response);
         }
         if(request.getParameter("botao").equalsIgnoreCase("Salvar")){
-            Pedido pedido = new Pedido();
+        	try {
+        	Pedido pedido = new Pedido();
 
-            try {
+            
                 Date data = new SimpleDateFormat("dd/MM/yyyy").parse(request.getParameter("data"));
                 pedido.setData(data);
-            } catch (ParseException e) {
-                e.printStackTrace();
+            
+            String codigoDoCliente = request.getParameter("codcliente");
+            
+            if(codigoDoCliente != null && !("".equals(codigoDoCliente))){
+            	pedido.getCliente().setCodigo(Integer.parseInt(codigoDoCliente));
             }
-
-            pedido.getCliente().setCodigo(Integer.parseInt(request.getParameter("codcliente")));
-
+            
             String numero = request.getParameter("numero");
 
             if(numero == null || numero.isEmpty()){
@@ -115,9 +119,20 @@ public class PedidoItemBll extends HttpServlet {
             pi.setItem(new Item());
 
             pi.getPedido().setNumero(pedido.getNumero());
-            pi.getItem().setCodigo(Integer.parseInt(request.getParameter("coditem")));
-            pi.setQuantidade(Integer.parseInt(request.getParameter("quantidade")));
-            pi.setValorunitario(Double.parseDouble(request.getParameter("valor")));
+            String coditem = request.getParameter("coditem");
+            if(coditem != null && !("".equals(coditem))){
+            	pi.getItem().setCodigo(Integer.parseInt(coditem));
+            }
+            String quantidade = request.getParameter("quantidade");
+            if(quantidade != null && !("".equals(quantidade))){
+            	pi.setQuantidade(Integer.parseInt(quantidade));
+            }
+            
+            String valor = request.getParameter("valor");
+            if(valor != null && !("".equals(valor))){
+            	pi.setValorunitario(Double.parseDouble(valor));
+            }
+            
             
             pedidoItemDAO.Remover(pi.getPedido().getNumero(), pi.getItem().getCodigo());
             pedidoItemDAO.Inserir(pi);
@@ -131,18 +146,38 @@ public class PedidoItemBll extends HttpServlet {
             request.setAttribute("clientes", clienteDAO.ConsultarTodos());
             request.setAttribute("itens", itemDAO.ConsultarTodos());
             view.forward(request, response);
-        }
-        if(request.getParameter("botao").equalsIgnoreCase("Pesquisar")){
-            String numero = request.getParameter("numero");
-
-            if(!(numero == null || numero.isEmpty()))
-            {
-                RequestDispatcher view = request.getRequestDispatcher(FORMULARIO);
-                request.setAttribute("pis", pedidoItemDAO.ConsultarTodosPorPedido(Integer.parseInt(numero)));
+            
+        	} catch (ParseException e) {
+        		RequestDispatcher view = request.getRequestDispatcher(FORMULARIO);
+                request.setAttribute("pi", null); 
+                request.setAttribute("pis", pedidoItemDAO.ConsultarTodos());
                 request.setAttribute("clientes", clienteDAO.ConsultarTodos());
                 request.setAttribute("itens", itemDAO.ConsultarTodos());
                 view.forward(request, response);
             }
+        }
+        if(request.getParameter("botao").equalsIgnoreCase("Pesquisar")){
+
+        	try{
+        		String numero = request.getParameter("numero");
+	
+	            if(!(numero == null || numero.isEmpty()))
+	            {
+	                RequestDispatcher view = request.getRequestDispatcher(FORMULARIO);
+	                request.setAttribute("pis", pedidoItemDAO.ConsultarTodosPorPedido(Integer.parseInt(numero)));
+	                request.setAttribute("clientes", clienteDAO.ConsultarTodos());
+	                request.setAttribute("itens", itemDAO.ConsultarTodos());
+	                view.forward(request, response);
+	            }
+            
+	        } catch (Exception e) {
+	    		RequestDispatcher view = request.getRequestDispatcher(FORMULARIO);
+	            request.setAttribute("pi", null); 
+	            request.setAttribute("pis", pedidoItemDAO.ConsultarTodos());
+	            request.setAttribute("clientes", clienteDAO.ConsultarTodos());
+	            request.setAttribute("itens", itemDAO.ConsultarTodos());
+	            view.forward(request, response);
+	        }
         }
         if(request.getParameter("botao").equalsIgnoreCase("Alterar")){
         	int nrPedido = Integer.parseInt(request.getParameter("nrpedido"));

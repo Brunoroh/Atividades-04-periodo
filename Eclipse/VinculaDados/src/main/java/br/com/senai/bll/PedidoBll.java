@@ -83,6 +83,7 @@ public class PedidoBll extends HttpServlet {
         }
         RequestDispatcher view = request.getRequestDispatcher(FORMULARIO);
         request.setAttribute("pedidos", dal.ConsultarTodos());
+        request.setAttribute("clientes", dalc.ConsultarTodos());
         view.forward(request, response);
     }
 }

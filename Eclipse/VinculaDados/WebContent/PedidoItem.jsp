@@ -11,7 +11,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Pedido com Item</title>      
+        <title>Pedido com Item</title>
+        <script src="node_modules/jquery/dist/jquery.js"></script>
+        <script src="js/validate.js"></script>      
     </head>
     <body>
         <form id="formulario" method="POST" action='PedidoItemBll' name="frmDadosPI">
@@ -20,14 +22,14 @@
                     <tr>
                         <input type="hidden" name="objeto" value="<%= request.getAttribute("pi") %>">
                         <td>Numero:</td>
-                        <td> <input type="text" name="numero" value="<c:out value="${pi.pedido.numero}" />" /> </td> 
+                        <td> <input type="text" id="numero" name="numero" value="<c:out value="${pi.pedido.numero}" />" /> </td> 
                         <td>Data:</td>
                         <td> <input type="text" name="data" value="<fmt:formatDate pattern="dd/MM/yyyy" value="${pi.pedido.data}" />" /> </td> 
                     </tr>
                     <tr>
                         <td>Cliente:</td>
                         <td colspan="2"> 
-                            <select name ="codcliente" >
+                            <select id="codcliente" name ="codcliente" >
                                 <c:forEach items="${clientes}" var="cliente">
                                     <option value="<c:out value="${cliente.codigo}"/>" 
                                             ${cliente.codigo ==  pi.pedido.cliente.codigo ? 'selected' : ''}>
@@ -40,7 +42,7 @@
                     <tr>
                         <td>Item:</td>
                         <td colspan = "2"> 
-                            <select name ="coditem" >
+                            <select id="coditem" name ="coditem" >
                                 <c:forEach items="${itens}" var="item">
                                     <option value="<c:out value="${item.codigo}"/>" 
                                             ${item.codigo ==  pi.item.codigo ? 'selected' : ''}>
@@ -52,15 +54,15 @@
                     </tr>
                     <tr>
                         <td>Quantidade:</td>
-                        <td> <input type="text" name="quantidade" value="<c:out value="${pi.quantidade}" />" /> </td> 
+                        <td> <input type="text" name="quantidade" onkeypress="return event.charCode >= 48 && event.charCode <= 57" value="<c:out value="${pi.quantidade}" />" /> </td> 
                         <td>Valor Unitário:</td>
-                        <td> <input type="text" name="valor" value="<c:out value="${pi.valorunitario}" />" /> </td> 
+                        <td> <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" name="valor" value="<c:out value="${pi.valorunitario}" />" /> </td> 
                     </tr>
                 </tbody>
             </table>
             <br>
             <input type="submit" value="Novo" name="botao" />
-            <input type="submit" value="Salvar" name="botao" />
+            <input type="submit" value="Salvar" id="salvar" name="botao" />
             <input type="submit" value="Pesquisar" name="botao" />
             <br>
             <br>

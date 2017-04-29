@@ -50,25 +50,31 @@ public class ClienteBll extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Cliente cliente = new Cliente();
-        cliente.setNome(request.getParameter("nome"));
-        cliente.setCpf(Long.parseLong(request.getParameter("cpf")));
-        cliente.setTelefone(request.getParameter("telefone"));
-        cliente.setEndereco(request.getParameter("endereco"));
-        
-        String codigo = request.getParameter("codigo");
-        
-        if(codigo == null || codigo.isEmpty())
-        {
-            dal.Inserir(cliente);
+        try{
+        	Cliente cliente = new Cliente();
+            cliente.setNome(request.getParameter("nome"));
+            cliente.setCpf(Long.parseLong(request.getParameter("cpf")));
+            cliente.setTelefone(request.getParameter("telefone"));
+            cliente.setEndereco(request.getParameter("endereco"));
+            
+            String codigo = request.getParameter("codigo");
+            
+            if(codigo == null || codigo.isEmpty())
+            {
+                dal.Inserir(cliente);
+            }
+            else
+            {
+                cliente.setCodigo(Integer.parseInt(codigo));
+                dal.Alterar(cliente);
+            }
+            RequestDispatcher view = request.getRequestDispatcher(FORMULARIO);
+            request.setAttribute("clientes", dal.ConsultarTodos());
+            view.forward(request, response);
+        }catch(Exception e){
+        	RequestDispatcher view = request.getRequestDispatcher(FORMULARIO);
+            request.setAttribute("clientes", dal.ConsultarTodos());
+            view.forward(request, response);
         }
-        else
-        {
-            cliente.setCodigo(Integer.parseInt(codigo));
-            dal.Alterar(cliente);
-        }
-        RequestDispatcher view = request.getRequestDispatcher(FORMULARIO);
-        request.setAttribute("clientes", dal.ConsultarTodos());
-        view.forward(request, response);
     }
 }

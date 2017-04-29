@@ -22,6 +22,7 @@ public class Pedido {
     
     public Pedido() {
 		cliente = new Cliente();
+		data = new Date();
 	}
 
 	/**
